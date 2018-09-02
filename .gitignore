@@ -108,3 +108,5 @@ test_cat_face_0.jpg
 output.png
 output.jpg
 output.jpg
+/sad_cat_outputs/*
+/happy_cat_inputs/*
