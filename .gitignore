@@ -101,3 +101,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+output.png
+test_cat_face_0.jpg
+*.jpg
