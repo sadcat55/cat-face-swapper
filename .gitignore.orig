@@ -104,7 +104,10 @@ venv.bak/
 output.png
 test_cat_face_0.jpg
 *.jpg
-/lib/pycatfd/training_data.tar.gz
+<<<<<<< HEAD
 output.png
 output.jpg
 output.jpg
+=======
+/lib/pycatfd/training_data.tar.gz
+>>>>>>> c50e924a01f63b66877f1faa219e5dff7c808edc

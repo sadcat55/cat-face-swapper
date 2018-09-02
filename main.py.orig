@@ -4,9 +4,14 @@ import catfd
 from PIL import Image
 
 def main():
+<<<<<<< HEAD
+        print("Hello world!")
+        input_image = "./images/samples/test_cat.jpg"
+=======
         print("Starting to make cat sad!")
         
         input_image = "./images/samples/link.jpg"
+>>>>>>> c50e924a01f63b66877f1faa219e5dff7c808edc
         output_path = "."
         use_json = True
         annotate_faces = False
@@ -28,8 +33,13 @@ def main():
         if len(list_of_cat_faces) > 0:
             for cat_face_info in list_of_cat_faces:
 
+<<<<<<< HEAD
+        sadcat_image = Image.open("./images/sadcat_transparent.png").convert("RGBA")
+        sadcat_image = sadcat_image.resize((cat_face_info["width"],cat_face_info["height"]))
+=======
                 cat_face = cat_face_info["face"]
                 cat_face_position = (cat_face["left"], cat_face["top"])
+>>>>>>> c50e924a01f63b66877f1faa219e5dff7c808edc
 
                 sadcat_image = Image.open("./images/sadcat_trasparent.png").convert("RGBA")
                 sadcat_image = sadcat_image.resize((cat_face["width"],cat_face["height"]))
