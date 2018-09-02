@@ -9,7 +9,15 @@ from os.path import isfile, join, exists, basename, splitext
 
 from math import atan2, degrees
 
+def sanitize_input_image(input_image_path):
+    image = Image.open(input_image_path).convert("RGB")
+    image.save(input_image_path)
+
 def swap_cat_face_with_sad_cat_face(input_image_path, output_folder_path):
+    if not ".jpg" in input_image_path:
+        return
+    sanitize_input_image(input_image_path)
+
     use_json = True
     annotate_faces = False
     annotate_landmarks = False
@@ -33,15 +41,23 @@ def swap_cat_face_with_sad_cat_face(input_image_path, output_folder_path):
             cat_face = cat_face_info["face"]
             cat_face_position = (cat_face["left"], cat_face["top"])
             cat_face_landmarks = cat_face["landmarks"]
-
+            cat_face_left_eye_position = cat_face_landmarks["Left Eye"]
             sadcat_image = Image.open("./images/sadcat_transparent.png").convert("RGBA")
+            #Todo resize with distance between pupils
             sadcat_image = sadcat_image.resize((cat_face["width"],cat_face["height"]))
 
-            rotation_degree = -get_angle_of_line_of_two_points(cat_face_landmarks["Left Eye"], cat_face_landmarks["Right Eye"])
+            rotation_degree = -get_angle_of_line_of_two_points(cat_face_left_eye_position, cat_face_landmarks["Right Eye"])
             sadcat_image = sadcat_image.rotate(rotation_degree)
             print("Rotate sad cat by " + str(rotation_degree) + " degrees")
 
             target_image = Image.open(input_image_path).convert("RGBA")
+
+            #sad_cat_left_eye_position = (56, 62)
+
+            #sad_cat_left_eye_position = (100, 100)
+            #cat_face_left_eye_position = (150, 150)
+            if cat_face_position[0]<0 or cat_face_position[1]<0:
+                return
             target_image.alpha_composite(sadcat_image, cat_face_position)
             target_image_file_name, extension = splitext(basename(input_image_path))
 
@@ -58,6 +74,7 @@ def get_angle_of_line_of_two_points(p1_tuple=(0,0), p2_tuple=(0,0)):
 
 def main():
     print("Starting to make cat sad!")
+
     input_folder_path = './happy_cat_inputs'
     output_folder_path = './sad_cat_outputs'
 
