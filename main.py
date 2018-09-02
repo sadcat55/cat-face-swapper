@@ -13,7 +13,7 @@ def main():
         annotate_landmarks = False
         face_color = [0,0,0]
         landmark_color = [0,0,0]
-        save_chip = True
+        save_chip = False
 
         list_of_cat_faces = catfd.detect(
             input_image, 
@@ -31,7 +31,7 @@ def main():
                 cat_face = cat_face_info["face"]
                 cat_face_position = (cat_face["left"], cat_face["top"])
 
-                sadcat_image = Image.open("./images/sadcat_trasparent.png").convert("RGBA")
+                sadcat_image = Image.open("./images/sadcat_transparent.png").convert("RGBA")
                 sadcat_image = sadcat_image.resize((cat_face["width"],cat_face["height"]))
 
                 target_image = Image.open(input_image).convert("RGBA")
