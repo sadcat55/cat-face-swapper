@@ -1,0 +1,6 @@
+#pycatfd
+dlib
+opencv-python
+Pillow
+requests
+scikit-image
