@@ -1,11 +1,12 @@
 import sys
-sys.path.append('../pycatfd')
+sys.path.append('lib/pycatfd')
 import catfd
 from PIL import Image
 
 def main():
-        print("Hello world!")
-        input_image = "./images/samples/zelda.jpg"
+        print("Starting to make cat sad!")
+        
+        input_image = "./images/samples/link.jpg"
         output_path = "."
         use_json = True
         annotate_faces = False
@@ -14,18 +15,29 @@ def main():
         landmark_color = [0,0,0]
         save_chip = True
 
-        list_of_cat_faces = catfd.detect(input_image, output_path, use_json, annotate_faces,
-           annotate_landmarks, face_color, landmark_color, save_chip)
+        list_of_cat_faces = catfd.detect(
+            input_image, 
+            output_path, 
+            use_json, 
+            annotate_faces,
+            annotate_landmarks, 
+            face_color, 
+            landmark_color, 
+            save_chip)
 
-        cat_face_info = list_of_cat_faces[0]["face"]
-        cat_face_position = (cat_face_info["left"], cat_face_info["top"])
+        if len(list_of_cat_faces) > 0:
+            for cat_face_info in list_of_cat_faces:
 
-        sadcat_image = Image.open("./images/sadcat-transparent.png").convert("RGBA")
-        sadcat_image = sadcat_image.resize((cat_face_info["width"],cat_face_info["height"]))
+                cat_face = cat_face_info["face"]
+                cat_face_position = (cat_face["left"], cat_face["top"])
 
-        target_image = Image.open(input_image).convert("RGBA")
-        target_image.alpha_composite(sadcat_image, cat_face_position)
-        target_image.save("output.png")
+                sadcat_image = Image.open("./images/sadcat_trasparent.png").convert("RGBA")
+                sadcat_image = sadcat_image.resize((cat_face["width"],cat_face["height"]))
 
+                target_image = Image.open(input_image).convert("RGBA")
+                target_image.alpha_composite(sadcat_image, cat_face_position)
+                target_image.save("output.png")
+        else:
+            print("Could not detect a cat face :(")
 
 main()
