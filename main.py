@@ -1,5 +1,5 @@
 import sys
-sys.path.append('lib/pycatfd')
+sys.path.append('../pycatfd')
 import catfd
 
 def main():
